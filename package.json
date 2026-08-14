@@ -1,6 +1,6 @@
 {
   "name": "render-promise-dialog",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "Type-safe promise-based dialog manager for Vue 2 and Vue 3",
   "repository": {
     "type": "git",
