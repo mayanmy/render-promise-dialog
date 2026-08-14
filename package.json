@@ -4,11 +4,11 @@
   "description": "Type-safe promise-based dialog manager for Vue 2 and Vue 3",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/mayanmy/vue-render-promise.git"
+    "url": "git+https://github.com/mayanmy/render-promise-dialog.git"
   },
-  "homepage": "https://github.com/mayanmy/vue-render-promise#readme",
+  "homepage": "https://github.com/mayanmy/render-promise-dialog#readme",
   "bugs": {
-    "url": "https://github.com/mayanmy/vue-render-promise/issues"
+    "url": "https://github.com/mayanmy/render-promise-dialog/issues"
   },
   "type": "module",
   "license": "MIT",
