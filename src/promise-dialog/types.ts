@@ -1,6 +1,7 @@
-import type { Component } from 'vue'
-
 export type DialogId = number
+
+/** Compatible with Vue 2 constructors and Vue 3 component definitions. */
+export type DialogComponent = object | ((...args: never[]) => unknown)
 
 export type DialogResult<T> =
   | { status: 'confirmed'; value: T }
@@ -15,7 +16,7 @@ export interface DialogOpenOptions {
 
 export interface DialogDefinition<TProps, TResult> {
   name: string
-  component: Component
+  component: DialogComponent
   defaultProps?: Partial<TProps>
 }
 
@@ -23,7 +24,7 @@ export interface DialogInstance {
   id: DialogId
   name: string
   key?: string
-  component: Component
+  component: DialogComponent
   props: Record<string, unknown>
   resolve(value: unknown): void
   cancel(reason?: unknown): void

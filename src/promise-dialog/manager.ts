@@ -1,4 +1,3 @@
-import { shallowReactive } from 'vue'
 import type {
   DialogDefinition,
   DialogInstance,
@@ -7,14 +6,33 @@ import type {
   OpenDialog,
 } from './types'
 
-export const dialogInstances = shallowReactive<DialogInstance[]>([])
+export const dialogInstances: DialogInstance[] = []
+
+type DialogListener = () => void
+const listeners = new Set<DialogListener>()
+
+function notifyListeners() {
+  for (const listener of listeners) listener()
+}
+
+export function subscribeDialogs(listener: DialogListener) {
+  listeners.add(listener)
+  return () => listeners.delete(listener)
+}
+
+export function getDialogInstances(): readonly DialogInstance[] {
+  return dialogInstances
+}
 
 let seed = 0
 const singletonPromises = new Map<string, Promise<DialogResult<unknown>>>()
 
 function removeDialog(id: number) {
   const index = dialogInstances.findIndex((item) => item.id === id)
-  if (index >= 0) dialogInstances.splice(index, 1)
+  if (index >= 0) {
+    dialogInstances.splice(index, 1)
+    notifyListeners()
+  }
 }
 
 export function createPromiseDialog<
@@ -62,6 +80,7 @@ export function createPromiseDialog<
       }
 
       dialogInstances.push(instance)
+      notifyListeners()
 
       if (options.signal) {
         const handleAbort = () => instance.cancel(options.signal?.reason)

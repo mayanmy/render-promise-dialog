@@ -4,6 +4,7 @@ import {
   cancelAllDialogs,
   createPromiseDialog,
   dialogInstances,
+  subscribeDialogs,
 } from './manager'
 
 const TestDialog = defineComponent({ template: '<div />' })
@@ -72,5 +73,23 @@ describe('promise dialog manager', () => {
       reason: 'route-change',
     })
     expect(dialogInstances).toHaveLength(0)
+  })
+
+  it('notifies framework hosts when instances change', async () => {
+    const changes: number[] = []
+    const unsubscribe = subscribeDialogs(() => {
+      changes.push(dialogInstances.length)
+    })
+    const open = createPromiseDialog<Record<string, never>, void>({
+      name: 'subscription-test',
+      component: TestDialog,
+    })
+
+    const promise = open({})
+    dialogInstances[0]!.cancel()
+    await promise
+    unsubscribe()
+
+    expect(changes).toEqual([1, 0])
   })
 })
