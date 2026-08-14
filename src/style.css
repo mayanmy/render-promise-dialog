@@ -11,7 +11,8 @@ button, input { font: inherit; }
 button { cursor: pointer; }
 
 .page-shell { max-width: 1120px; margin: 0 auto; padding: 84px 32px; }
-.hero { display: grid; grid-template-columns: 1.05fr .95fr; align-items: center; gap: 72px; min-height: 520px; }
+.hero { display: grid; grid-template-columns: minmax(0, 1.05fr) minmax(0, .95fr); align-items: center; gap: 72px; min-height: 520px; }
+.hero > * { min-width: 0; }
 .hero-kicker, .eyebrow { color: #cd5d36; font-size: 12px; font-weight: 800; letter-spacing: .16em; text-transform: uppercase; }
 h1 { margin: 18px 0 24px; font-family: Georgia, serif; font-size: clamp(48px, 6vw, 78px); line-height: .98; letter-spacing: -.045em; }
 h1 em { color: #cd5d36; font-weight: inherit; }
@@ -35,6 +36,23 @@ h1 em { color: #cd5d36; font-weight: inherit; }
 .status-block span { color: #7b8581; font-size: 13px; }.status-block strong { font-size: 20px; }
 .timeline { display: grid; gap: 10px; margin: 0; padding-left: 24px; color: #4b5752; }.timeline .empty { color: #9aa19e; }
 
+.scenario-section { padding-top: 92px; }
+.section-heading { display: flex; justify-content: space-between; align-items: end; gap: 48px; margin-bottom: 30px; }
+.section-heading h2 { margin: 10px 0 0; font-family: Georgia, serif; font-size: clamp(34px, 4vw, 48px); letter-spacing: -.035em; }
+.section-heading p { max-width: 480px; margin: 0; color: #68736e; line-height: 1.7; }
+.scenario-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; }
+.scenario-card { position: relative; min-height: 230px; padding: 28px; overflow: hidden; background: #f8f7f2; border: 1px solid #dfddd4; border-radius: 16px; transition: border-color .2s, transform .2s, box-shadow .2s; }
+.scenario-card:last-child:nth-child(odd) { grid-column: 1 / -1; }
+.scenario-card:hover { transform: translateY(-2px); box-shadow: 0 14px 36px #26332d12; }
+.scenario-card.active { border-color: #c95631; box-shadow: inset 0 0 0 1px #c95631; }
+.scenario-number { color: #c95631; font: 700 12px/1 "SFMono-Regular", Consolas, monospace; letter-spacing: .12em; }
+.scenario-card h3 { margin: 32px 0 10px; font-family: Georgia, serif; font-size: 25px; }
+.scenario-card p { max-width: 390px; margin: 0; color: #6d7773; line-height: 1.65; }
+.text-button { display: flex; align-items: center; gap: 8px; margin-top: 26px; padding: 0; color: #27312d; background: transparent; border: 0; font-weight: 800; }
+.text-button span { color: #c95631; font-size: 20px; transition: transform .15s; }
+.text-button:hover:not(:disabled) span { transform: translateX(4px); }
+.text-button:disabled { cursor: not-allowed; opacity: .45; }
+
 .dialog-mask { position: fixed; z-index: 1000; inset: 0; display: grid; place-items: center; padding: 24px; background: #15211d99; backdrop-filter: blur(6px); animation: fade-in .18s ease-out; }
 .dialog-card { width: min(520px, 100%); padding: 28px; background: #fbfaf6; border: 1px solid #ffffff; border-radius: 18px; box-shadow: 0 30px 80px #0b151150; animation: rise-in .22s ease-out; }
 .dialog-card.compact { width: min(460px, 100%); }
@@ -57,4 +75,8 @@ h1 em { color: #cd5d36; font-weight: inherit; }
   .hero { grid-template-columns: 1fr; gap: 42px; }
   .flow-panel { grid-template-columns: 1fr; }
   .status-block { padding: 0 0 20px; border-right: 0; border-bottom: 1px solid #dfddd4; }
+  .scenario-section { padding-top: 64px; }
+  .section-heading { align-items: flex-start; flex-direction: column; gap: 16px; }
+  .scenario-grid { grid-template-columns: 1fr; }
+  .scenario-card:last-child:nth-child(odd) { grid-column: auto; }
 }
